@@ -9,8 +9,8 @@ The purpose of the DestinE Usage Assessment (DUA) framework services is to provi
 |||Metadata Retrieval, Usage Assessment Metrics, Benchmark Dataset|Metadata Retrieval Tool|
 |||Use case|Earth Explorer Missions use case|
 |UAD|DestinE Usage Assessment Dashboard Services|DestinE Documents Repository|
-|||DestinE Docuemnts Statistics|
-|||AI Assistant for Earth Observation|
+|||DestinE Documents Statistics||
+|||AI Assistant for Earth Observation||
 
 
 ## Overview
