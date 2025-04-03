@@ -1,0 +1,43 @@
+{
+    "file_id": "open_alex-Aeolus-W2889162129",
+    "doc_type": "academic",
+    "repo_name": "open_alex",
+    "article_id": "W2889162129",
+    "initiative": "earth-explorers",
+    "mission": "Aeolus",
+    "keyword_dictionary_id": "ee-en-1.1",
+    "doi": "10.1109/MSPEC.2018.8449034",
+    "title": "Shining a light on global winds: The Aeolus satellite uses powerful lidar to measure wind speeds - [News]",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "funders": [],
+    "authors": [
+        {
+            "author_name": "Peter Fairley",
+            "affiliation": "",
+            "country": ""
+        }
+    ],
+    "author_names": [
+        "Peter Fairley"
+    ],
+    "affiliations": [],
+    "countries": [],
+    "genre": "journal-article",
+    "journal_name": "IEEE Spectrum",
+    "language": "en",
+    "published": "2018-08-29",
+    "is_oa": false,
+    "oa_status": "closed",
+    "license": "",
+    "tf_idf_score": 0.2744974265986884,
+    "citations": 0,
+    "JIF": 0.99,
+    "abstract": "It's closing time for one of Earth observation's most stubborn and critical data gaps: global wind speeds. A European Space Agency (ESA) satellite set for launch from French Guiana late last month-after nearly two decades of challenging engineering-will be the first to directly measure wind speed and direction, from Earth's surface to the stratosphere. ",
+    "full_text": "",
+    "reference": [],
+    "citings": [],
+    "thumbnail": "open_alex-Aeolus-W2889162129.jpeg",
+    "generation_time": 1737498720,
+    "training": [],
+    "classification": []
+}
