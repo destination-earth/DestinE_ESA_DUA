@@ -1,0 +1,28 @@
+IMRaD:
+  lookup_table:
+    Introduction: ["Introduction", "Background", "Related Work"]
+    Methods: ["Method", "Model", "Approach"]
+    Results: ["Result", "Experience", "Evaluation", "Unknown", "Fig"]
+    Discussion: ["Discussion", "Conclusion", "Future"]
+  weights:
+    Introduction: 0.2
+    Methods: 0.4
+    Results: 0.1
+    Discussion: 0.3
+keyword_weights:
+  count-level1-kw: 0.4
+  count-level2-kw: 0.3
+  count-level3-kw: 0.2
+  count-level4-kw: 0.1
+mission_aliases:
+  ESA Swarm: Swarm
+  CryoSat-2: CryoSat
+ac_repo_priority:
+  experts: 0
+  scopus: 1
+  nature: 2
+  open_alex: 3
+  semantic_scholar: 4
+  core: 5
+  jrc: 6
+  

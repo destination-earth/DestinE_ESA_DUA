@@ -1,0 +1,94 @@
+<form version="1.1" hideEdit="false" theme="dark">
+  <init>
+    <set token="tok_height1">480</set>
+  </init>
+  <label>TIA Service: ML performances</label>
+  <description>This dashboard shows performances and metrics of Machine Learning model used in the Traceability and Impact Analysis (TIA) service of the DestinE Usage Assessment framework.</description>
+  <search id="s_ee_3">
+    <query>index=dua sourcetype=$tok_usecase$ dataset.name=$tok_dataset$ id=$tok_id$ | table *
+  </query>
+  </search>
+  <fieldset submitButton="false">
+    <input id="dropdown_1" type="dropdown" token="tok_usecase" searchWhenChanged="true">
+      <label>UseCase</label>
+      <fieldForLabel>usecase</fieldForLabel>
+      <fieldForValue>usecase</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="json_ee_ml">EarthExplorers</choice>
+      <default>json_ee_ml</default>
+      <initialValue>json_ee_ml</initialValue>
+    </input>
+    <input id="dropdown_3" type="dropdown" token="tok_dataset" searchWhenChanged="true">
+      <label>Dataset</label>
+      <fieldForLabel>dataset</fieldForLabel>
+      <fieldForValue>dataset</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="*">*</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <search>
+        <query>index=dua sourcetype=$tok_usecase$ | rename dataset.name AS dataset | stats count by dataset | fields dataset</query>
+      </search>
+    </input>
+    <input id="dropdown_2" type="dropdown" token="tok_id" searchWhenChanged="true">
+      <label>Training id</label>
+      <fieldForLabel>id</fieldForLabel>
+      <fieldForValue>id</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="*">*</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <search>
+        <query>index=dua sourcetype=$tok_usecase$ dataset.name=$tok_dataset$ | stats count by id | fields id</query>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <html>
+        <style>
+          #panel_1{ width:100% !important; }
+            #tbl_1{ width:100% !important; }
+        </style>
+      </html>
+    </panel>
+  </row>
+  <row id="row_01">
+    <panel id="panel_1">
+      <table id="tbl_1">
+        <title>Training runs</title>
+        <search id="s_ee_03" base="s_ee_3">
+          <query>| spath path={} | fields - _raw 
+| rename {}.* as * | sort id
+| table id,model.name,params.algorithm,dataset.method,dataset.name,dataset.doc_type,classification_report.accuracy,classification_report.weighted_avg.precision,classification_report.weighted_avg.recall,classification_report.weighted_avg.f1-score,classification_report.weighted_avg.support
+| rename classification_report.* as *</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">row</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="wrap">true</option>
+        <drilldown>
+          <link target="_blank">/app/dua-uad/ml_perf_detail?form.tok_id=$row.id$</link>
+        </drilldown>
+        <format type="color" field="accuracy">
+          <colorPalette type="list">[#DC4E41,#F1813F,#006D9C,#53A051]</colorPalette>
+          <scale type="threshold">0.5,0.75,0.9</scale>
+        </format>
+        <format type="color" field="weighted_avg.precision">
+          <colorPalette type="list">[#DC4E41,#F1813F,#006D9C,#53A051]</colorPalette>
+          <scale type="threshold">0.5,0.75,0.9</scale>
+        </format>
+        <format type="color" field="weighted_avg.recall">
+          <colorPalette type="list">[#DC4E41,#F1813F,#006D9C,#53A051]</colorPalette>
+          <scale type="threshold">0.5,0.75,0.9</scale>
+        </format>
+        <format type="color" field="weighted_avg.f1-score">
+          <colorPalette type="list">[#DC4E41,#F1813F,#006D9C,#53A051]</colorPalette>
+          <scale type="threshold">0.5,0.75,0.9</scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

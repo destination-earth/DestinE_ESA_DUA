@@ -1,0 +1,461 @@
+<form version="1.1" hideEdit="false" hideSplunkBar="false" hideExport="true" theme="dark" stylesheet="destine_footer.css" script="tbl_image.js,destine_footer.js">
+  <init>
+    <set token="tok_height_1">275</set>
+  </init>
+  <label>DestinE Documents Repository</label>
+  <description>This dashboard allows to query the DestinE Document Repository.</description>
+  <search id="s_doc_0">
+    <query>index=dua sourcetype=json_dua initiative=$tok_initiative$ $tok_mission$ $tok_doc_type$ repo_name="$tok_repo$" doi="$tok_doi$*" title="$tok_title$*" source="$tok_source$"
+| spath path=classification{}.label output=classification
+| eval classification=if(isnull(classification) OR classification="","-",classification)
+| search classification=$tok_classification$ 
+| spath path=classification{}.confidence output=confidence 
+| spath path=author_names{} output=author_names 
+| eval doc_author_names=mvjoin(author_names, ", ") 
+| eval doc_author_names=if(isnull(doc_author_names) OR doc_author_names="","-",doc_author_names)
+| spath path=abstract | eval abstract=if(isnull(abstract) OR abstract="","-",abstract)
+| spath path=journal_name | eval journal_name=if(isnull(journal_name) OR journal_name="" OR journal_name="null","-",journal_name)
+| spath path=thumbnail
+| eval doi=if(isnull(doi) OR doi="","-",doi)
+| eval title=if(isnull(title) OR title="","-",title)
+| eval published=strftime(strptime(published, "%Y-%m-%d"), "%Y") | eval published=if(isnull(published),"-",published)
+| fields file_id, doc_type, doi, title, doc_author_names, author_names, abstract, journal_name, published, mission, repo_name, classification, confidence, thumbnail
+| fillnull value=0 confidence | fillnull value="-" 
+| stats values(*) as * by doc_type, file_id
+    </query>
+  </search>
+  <search id="s_filter">
+    <query>index=dua sourcetype=json_dua | stats count by initiative, mission, doc_type, repo_name
+    </query>
+  </search>
+  <search id="s_tot" base="s_doc_0">
+    <query>stats count</query>
+    <done>
+      <set token="tok_tot">$result.count$</set>
+    </done>
+  </search>
+  <fieldset submitButton="false">
+    <input id="dropdown_1" type="dropdown" token="tok_initiative" searchWhenChanged="true">
+      <label>UseCase</label>
+      <fieldForLabel>initiative</fieldForLabel>
+      <fieldForValue>initiative</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <search base="s_filter">
+        <query>stats count by initiative</query>
+      </search>
+    </input>
+    <input id="multiselect_1" type="multiselect" token="tok_mission" searchWhenChanged="true">
+      <label>Mission</label>
+      <fieldForLabel>mission</fieldForLabel>
+      <fieldForValue>mission</fieldForValue>
+      <valuePrefix>mission="</valuePrefix>
+      <delimiter> OR </delimiter>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <valueSuffix>"</valueSuffix>
+      <search base="s_filter">
+        <query>search initiative=$tok_initiative$
+| stats count by mission</query>
+      </search>
+    </input>
+    <input id="multiselect_2" type="multiselect" token="tok_doc_type" searchWhenChanged="true">
+      <label>Doc Type</label>
+      <fieldForLabel>doc_type</fieldForLabel>
+      <fieldForValue>doc_type</fieldForValue>
+      <valuePrefix>doc_type="</valuePrefix>
+      <delimiter> OR </delimiter>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <valueSuffix>"</valueSuffix>
+      <search base="s_filter">
+        <query>stats count by doc_type</query>
+      </search>
+    </input>
+    <input id="dropdown_2" type="dropdown" token="tok_repo" searchWhenChanged="true">
+      <label>Repository</label>
+      <fieldForLabel>repo_name</fieldForLabel>
+      <fieldForValue>repo_name</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <search base="s_filter">
+        <query>stats count by repo_name | fields repo_name</query>
+      </search>
+    </input>
+    <input id="dropdown_3" type="dropdown" token="tok_classification" searchWhenChanged="true">
+      <label>Classification</label>
+      <fieldForLabel>classification</fieldForLabel>
+      <fieldForValue>classification</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="*">ALL</choice>
+      <choice value="benchmark">benchmark</choice>
+      <choice value="influential">influential</choice>
+      <choice value="standard">standard</choice>
+      <choice value="-">-</choice>
+      <choice value="na">na</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input id="text_1" type="text" token="tok_doi" searchWhenChanged="true">
+      <label>DOI</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <change>
+        <eval token="form.tok_doi">if(mvcount('form.tok_doi')=0,"*",'form.tok_doi'))</eval>
+      </change>
+    </input>
+    <input id="text_2" type="text" token="tok_title" searchWhenChanged="true">
+      <label>Title</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <change>
+        <eval token="form.tok_title">if(mvcount('form.tok_title')=0,"*",'form.tok_title'))</eval>
+      </change>
+    </input>
+    <input id="text_3" type="text" token="tok_source" searchWhenChanged="true">
+      <label>Source</label>
+      <default>$tok_source$</default>
+      <initialValue>*</initialValue>
+      <change>
+        <eval token="form.tok_source">if(mvcount('form.tok_source')=0,"*",'form.tok_source')</eval>
+      </change>
+    </input>
+  </fieldset>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <html>
+          <style>
+            #row_1 { width:100% !important; }
+              #header_0 .dashboard-panel { width:100% !important; 
+            }
+            #row_1 div.dashboard-panel{
+              margin-left: 5px !important;
+            }
+              #panel0{ width:25% !important; }
+              #panel1{ width:75% !important; } 
+            #row_99 { width:100% !important; }
+              #footer_1 { width:100% !important; }
+          </style>
+        </html>
+    </panel>
+  </row>
+  <row id="row_1">
+    <panel id="panel0">
+      <title>Statistics</title>
+      <html>
+        <style>
+          #table-detail td:nth-child(1) {
+              width: 150px !important;
+              overflow-wrap: anywhere !important;
+          }
+          #chart_1 .highcharts-data-label text tspan{
+            font-size:150% !important;
+          }
+          #chart_2 .highcharts-data-label text tspan{
+            font-size:140% !important;
+          }
+          #chart_3 .highcharts-data-label text tspan{
+            font-size:140% !important;
+          }
+          /* donut */
+          .c3 svg g g.c3-legend-item {
+           fill: white;
+           font-size:12px;
+          }
+          .c3-tooltip td {
+            background-color: #b6b6b6;
+          }
+          g.c3-shapes.c3-shapes-benchmark path.c3-shape.c3-arc-benchmark{ fill:#1f77b4 !important; }
+          div.c3-tooltip-container table.c3-tooltip tr.c3-tooltip-name--benchmark td.name span{ background-color:#1f77b4 !important; }
+          g.c3-legend-item-benchmark line.c3-legend-item-tile{ stroke:#1f77b4 !important; }
+          
+          g.c3-shapes.c3-shapes-influential path.c3-shape.c3-arc-influential{ fill:#ff7f0e !important; }
+          div.c3-tooltip-container table.c3-tooltip tr.c3-tooltip-name--influential td.name span{ background-color:#ff7f0e !important; }
+          g.c3-legend-item-influential line.c3-legend-item-tile{ stroke:#ff7f0e !important; }
+          
+          g.c3-shapes.c3-shapes-standard path.c3-shape.c3-arc-standard{ fill:#2ca02c !important; }
+          div.c3-tooltip-container table.c3-tooltip tr.c3-tooltip-name--standard td.name span{ background-color:#2ca02c !important; }
+          g.c3-legend-item-standard line.c3-legend-item-tile{ stroke:#2ca02c !important; }
+          
+          g.c3-shapes.c3-shapes-\- path.c3-shape.c3-arc-\-{ fill:#9467bd !important; }
+          div.c3-tooltip-container table.c3-tooltip tr.c3-tooltip-name--\- td.name span{ background-color:#9467bd !important; }
+          g.c3-legend-item-\- line.c3-legend-item-tile{ stroke:#9467bd !important; }
+          
+          g.c3-shapes.c3-shapes-na path.c3-shape.c3-arc-na{ fill:#d62728 !important; }
+          div.c3-tooltip-container table.c3-tooltip tr.c3-tooltip-name--na td.name span{ background-color:#d62728 !important; }
+          g.c3-legend-item-na line.c3-legend-item-tile{ stroke:#d62728 !important; }
+        </style>
+      </html>
+      <viz type="viz_donut_c3.c3donut">
+        <title>Classification</title>
+        <search id="s_tot2" base="s_doc_0">
+          <query>stats count by classification</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="link.visible">0</option>
+        <option name="height">$tok_height_1$</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="viz_donut_c3.c3donut.expand">1</option>
+        <option name="viz_donut_c3.c3donut.label_show">1</option>
+        <option name="viz_donut_c3.c3donut.label_threshold">0.1</option>
+        <option name="viz_donut_c3.c3donut.label_value">value</option>
+        <option name="viz_donut_c3.c3donut.legend_position">bottom</option>
+        <option name="viz_donut_c3.c3donut.legend_show">1</option>
+        <option name="viz_donut_c3.c3donut.tooltip_format">%2f</option>
+        <option name="viz_donut_c3.c3donut.tooltip_show">true</option>
+        <option name="viz_donut_c3.c3donut.tooltip_value">default</option>
+        <option name="viz_donut_c3.c3donut.width">50</option>
+      </viz>
+      <chart id="chart_1">
+        <title>Missions</title>
+        <search id="s_missions" base="s_doc_0">
+          <query>stats count by mission</query>
+        </search>
+        <option name="link.visible">0</option>
+        <option name="height">$tok_height_1$</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.showPercent">0</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.05</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+      <chart id="chart_2">
+        <title>Docs by Repos</title>
+        <search id="s_top_repos" base="s_doc_0">
+          <query>stats count by repo_name</query>
+        </search>
+        <option name="link.visible">0</option>
+        <option name="height">$tok_height_1$</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.showPercent">0</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.05</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+      <chart id="chart_3">
+        <title>Top 5 Journals</title>
+        <search id="s_top_journal" base="s_doc_0">
+          <query>top limit=5 useother=true journal_name | eval percent=round(percent,2)</query>
+        </search>
+        <option name="link.visible">0</option>
+        <option name="height">$tok_height_1$</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.showPercent">0</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.05</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+      <table id="table_2">
+        <title>Top 5 Authors</title>
+        <search id="s_doc_02" base="s_doc_0">
+          <query>mvexpand author_names 
+| spath input=author_names 
+| eval author_names=if(isnull(author_names) OR author_names="","-",author_names) 
+| top limit=5 useother=true author_names | eval percent=round(percent,3)</query>
+        </search>
+        <option name="count">6</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel id="panel1">
+      <title>Results ($tok_tot$)</title>
+      <html>
+        <style>
+          .facets-container .viz-facet {
+            height: 100px !important;
+            width: 160px !important;
+            float: center;
+            padding: 10px 10px 10px 10px;
+          }
+          #table_1 thead.shared-resultstable-resultstableheader tr th:nth-child(1).sorts a{
+            visibility: hidden;
+          }
+          /* doc_type */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="0"].multivalue-subcell{
+            margin-bottom: 10px;
+            background-color: #F0EEEE;
+            color: #0d0d0d;
+            border-radius: 20px;
+            padding: 8px 12px 6px 12px;
+            margin-right: 10px;
+            line-height: 100%;
+            font-size: 12px;
+            max-width: fit-content;
+            font-family: "Roboto", sans-serif;
+          }
+          /* doi */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="1"].multivalue-subcell{
+            align-items: center;
+            background-color: rgb(119, 121, 127);;
+            border-radius: 4px;
+              border-top-right-radius: 4px;
+              border-bottom-right-radius: 4px;
+            color: #ffcd57;
+            display: inline-flex;
+            font-size: 0.85rem;
+            height: 2em;
+            justify-content: center;
+            line-height: 1.5;
+            padding-left: 0.75em;
+            padding-right: 0.75em;
+            white-space: nowrap;
+          }
+          /* title */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="2"].multivalue-subcell{
+            display: flex;
+            font-weight: bold;
+            font-size: 1.5em;
+            font-family: "Roboto", sans-serif;
+            color: #bfbfbf;
+          }
+          /* doc_author_names */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="3"].multivalue-subcell{
+            display: flex;
+            font-weight: 400;
+            font-size: 1.2em;
+            font-family: "Roboto", sans-serif;
+            line-height: 21px;
+          }
+          /* abstract */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="4"].multivalue-subcell{
+            overflow: auto;
+            margin: 5px;
+            padding: 5px;
+            color: #FFFFFF;
+            background-color: #003d5e;
+            border-style: solid;
+            border-width: 2px 2px 2px 2px;
+            border-color: #DEDEDE;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-weight: 400;
+            font-size: 1em;
+            font-family: "Roboto", sans-serif;
+            @media only screen and (min-width: 1441px) {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+          }
+          /* journal_name , published */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="5"].multivalue-subcell{
+            display: flex;
+            font-weight: 400;
+            font-size: 1em;
+            font-family: "Roboto", sans-serif;
+            line-height: 21px;
+          }
+          /* mission */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="6"].multivalue-subcell{
+            margin-top: 10px;
+            background-color: #F0EEEE;
+            color: #0d0d0d;
+            border-radius: 20px;
+            padding: 8px 12px 6px 12px;
+            margin-right: 10px;
+            line-height: 100%;
+            font-size: 12px;
+            max-width: fit-content;
+            font-family: "Roboto", sans-serif;
+          }
+          /* repo_name */
+          #table_1 td[data-cell-index="1"] div[data-mv-index="7"].multivalue-subcell{
+            margin-top: 10px;
+            background-color: #F0EEEE;
+            color: #0d0d0d;
+            border-radius: 20px;
+            padding: 8px 12px 6px 12px;
+            margin-right: 10px;
+            line-height: 100%;
+            font-size: 12px;
+            max-width: fit-content;
+            font-family: "Roboto", sans-serif;
+          }
+          
+          /* Classification              */
+          #table_1 td[data-cell-index="2"] {
+            display: grid;
+            gap: 10px;
+            margin-top: 10px;
+            background-color: #F0EEEE;
+            color: #0d0d0d;
+            border-radius: 20px;
+            padding: 8px 12px 6px 12px;
+            margin-right: 10px;
+            line-height: 100%;
+            font-size: 12px;
+            max-width: fit-content;
+            font-family: "Roboto", sans-serif;
+          }
+          
+          #table_1 td:nth-child(1) {
+            padding: 5px 5px 5px 5px;
+            width: 15% !important;
+          }
+          #table_1 td:nth-child(2) {
+            width: 100% !important;
+          }
+          #table_1 td:nth-child(3) {
+            width: 100% !important;
+          }
+          
+        </style>
+      </html>
+      <table id="table_1">
+        <title>Click on the "image" cell to redirect to the original object location</title>
+        <search id="s_doc_1" base="s_doc_0">
+          <query>lookup kv_thumbnails name AS thumbnail OUTPUT image
+| eval doc_mtd=doc_type."|".doi."|".title."|".doc_author_names."|".substr(abstract, 1, 400)."..."."|".journal_name.", ".published."|".mission."|".repo_name
+| makemv doc_mtd delim="|"
+| eval _doi=doi
+| eval classification=classification." (".confidence.")"
+| table image, doc_mtd, classification, _doi
+| rename doc_mtd AS "Document", classification AS Classification
+</query>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Classification">
+          <colorPalette type="expression">if(match(value,"benchmark"),"#1f77b4", if(match(value,"influential"),"#ff7f0e", if(match(value,"standard"),"#2ca02c", if(match(value,"-"),"#9467bd", if(match(value,"na"),"#d62728", "#1f77b4")))))</colorPalette>
+        </format>
+        <drilldown>
+          <condition match="$row._doi$ == &quot;-&quot;"></condition>
+          <condition field="image">
+            <link target="_blank">
+              <![CDATA[ https://doi.org/$row._doi$ ]]>
+            </link>
+          </condition>
+          <condition field="*">
+            <set token="x">none</set>
+          </condition>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row id="row_99">
+    <panel id="footer_1">
+      <html>
+        <div id="destine_footer">
+    	  </div>
+      </html>
+    </panel>
+  </row>
+</form>

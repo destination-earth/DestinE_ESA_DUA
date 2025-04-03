@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "dua.tia.configuration-manager.redis.host",
+    "type": "java.lang.String",
+    "description": "Redis host"
+  },
+  {
+    "name": "dua.tia.configuration-manager.redis.port",
+    "type": "java.lang.String",
+    "description": "Redis port"
+  }
+]}

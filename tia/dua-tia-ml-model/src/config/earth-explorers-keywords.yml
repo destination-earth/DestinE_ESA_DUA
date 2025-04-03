@@ -1,0 +1,61 @@
+level1: Earth Explorer
+missions:
+  - name: GOCE
+    level3:
+      - earth's gravity
+      - gravity
+    level4:
+      - ocean circulation
+      - sea level
+      - ice dynamics
+  - name: SMOS
+    level3:
+      - soil moisture
+      - salinity
+      - sea ice
+      - vegetation optical depth
+      - freeze thaw
+      - wind speed
+      - solar flux
+      - radiometer
+      - brightness
+    level4:
+      - water cycle
+      - numerical weather prediction
+      - flood monitoring and forecasting
+      - land atmosphere interaction
+      - drought monitoring and forecasting
+      - agricultural yield monitoring and forecasting
+  - name: CryoSat
+    level3:
+      - CS2
+      - ice
+    level4:
+      - thickness
+      - sea
+      - sea level
+      - shelves
+      - siral
+      - climate change
+      - oceanography
+      - altimetry
+  - name: Swarm
+    level3:
+      - magnetic field
+      - ionosphere
+      - thermosphere
+      - magnetosphere
+  - name: Aeolus
+    level3:
+      - mission
+      - satellite
+    level4:
+      - aerosol
+      - cloud
+      - doppler lidar
+      - weather forecasting
+      - wind
+      - wind measurement
+      - wind observation
+      - wind profile
+      - wind speed

@@ -1,0 +1,92 @@
+{"properties": [
+  {
+    "name": "dua.tia.repositoryharvester.keywords.config-file",
+    "type": "java.lang.String",
+    "description": "relative path of keywords json config file"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.redis.host",
+    "type": "java.lang.String",
+    "description": "redis host"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.redis.port",
+    "type": "java.lang.String",
+    "description": "redis port"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.full-text-max-size",
+    "type": "java.lang.String",
+    "description": "Maximum document full text size"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.json-response-max-size",
+    "type": "java.lang.String",
+    "description": "Maximum stream text size for the Jackson ObjectMapper used to parse the query results"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.querymode.repositories",
+    "type": "java.util.List<com.exprivia.dfda.duatiarepositoryharvester.DuaTiaRepositoryHarvesterConfiguration.QueryModeRepository>",
+    "description": "Repository configuration for query-mode"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.querymode.output-file",
+    "type": "java.lang.String",
+    "description": "Query-mode output file name"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.journals.config-file",
+    "type": "java.lang.String",
+    "description": "Filename of the Journals Impact Factor csv file"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.journals.skip-header",
+    "type": "java.lang.String",
+    "description": "Skip header in the Journals csv file"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.journals.issns-column",
+    "type": "java.lang.String",
+    "description": "Column number for Journal issns list"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.journals.title-column",
+    "type": "java.lang.String",
+    "description": "Column number for Journal title"
+  },
+  {
+    "name": "dua.tia.repositoryharvester.journals.score-column",
+    "type": "java.lang.String",
+    "description": "Column number for Journal score"
+  },
+  {
+    "name": "dua.tia.configurationmanager.repo-search-binding.url",
+    "type": "java.lang.String",
+    "description": "Url template for the configuration manager \"repo-search-binding\" service"
+  },
+  {
+    "name": "dua.tia.configurationmanager.keyword-dictionary.url",
+    "type": "java.lang.String",
+    "description": "Url template for the configuration manager \"keyword-dictionary\" service"
+  },
+  {
+    "name": "dua.tia.configurationmanager.group-acronym.url",
+    "type": "java.lang.String",
+    "description": "Url template for the configuration manager \"repository-search-bindings-acronym\" service"
+  },
+  {
+    "name": "dua.tia.configuration-manager.base-url",
+    "type": "java.lang.String",
+    "description": "Configuration manager base url"
+  },
+  {
+    "name": "dua.tia.configurationmanager.query-max-publication-date.url",
+    "type": "java.lang.String",
+    "description": "Url template for the configuration manager \"query-max-publication-date\" service"
+  },
+  {
+    "name": "dua.tia.configurationmanager.query-max-publication-date-update.url",
+    "type": "java.lang.String",
+    "description": "Url template for the configuration manager \"query-max-publication-date\" update service"
+  }
+]}

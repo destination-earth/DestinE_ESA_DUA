@@ -1,0 +1,36 @@
+#### ENSEMBLE-RF #### 
+MODEL_NAME: ensemble
+MODULE_NAME: EnsembleTrainer
+TEST_SIZE: 0.2
+RANDOM_STATE: 42
+ALGORITHM: RandomForest
+PARAM_DIST:
+  n_estimators:
+    - 100
+    - 200
+    - 300
+    - 500
+  max_depth:
+    - 10
+    - 20
+    - 30
+    - null
+  min_samples_split: 
+    - 2
+    - 5
+    - 10
+  min_samples_leaf: 
+    - 1 
+    - 2
+    - 4
+  max_features: 
+    - sqrt
+    - log2
+  bootstrap:
+    - True
+    - False
+EMBEDDING_MODELS: 
+  - scibert 
+  - specter2 
+  - astrobert 
+

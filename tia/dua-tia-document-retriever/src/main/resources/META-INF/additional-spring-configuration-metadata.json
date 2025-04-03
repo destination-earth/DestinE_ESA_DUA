@@ -1,0 +1,67 @@
+{"properties": [
+  {
+    "name": "dua.tia.documentretriever.redis.host",
+    "type": "java.lang.String",
+    "description": "redis host"
+  },
+  {
+    "name": "dua.tia.documentretriever.redis.port",
+    "type": "java.lang.String",
+    "description": "redis port"
+  },
+  {
+    "name": "dua.tia.documentretriever.download.path",
+    "type": "java.lang.String",
+    "description": "Local path where download the document"
+  },
+  {
+    "name": "dua.tia.documentretriever.download.max-retry",
+    "type": "java.lang.String",
+    "description": "Maximum number of download retries"
+  },
+  {
+    "name": "dua.tia.documentretriever.metadata-queue-name",
+    "type": "java.lang.String",
+    "description": "Name of the queue used to trigger the full-text parsing task (metadata-retrieval-tool)"
+  },
+  {
+    "name": "dua.tia.documentretriever.unpaywall-fallback-enabled",
+    "type": "java.lang.String",
+    "description": "if true, when a document is not downloaded at all, try to resolve the download url by the unpaywall service"
+  },
+  {
+    "name": "dua.tia.documentretriever.unpaywall-url",
+    "type": "java.lang.String",
+    "description": "url of unpaywall document url by doi resolution service"
+  },
+  {
+    "name": "dua.tia.documentretriever.unpaywall-email",
+    "type": "java.lang.String",
+    "description": "email to call the unpaywall url by doi resolution service"
+  },
+  {
+    "name": "dua.tia.documentretriever.unpaywall-metadata-enabled",
+    "type": "java.lang.String",
+    "description": "enable additional document metadata retrieved from unpaywall service"
+  },
+  {
+    "name": "dua.tia.documentretriever.cross-ref-metadata-enabled",
+    "type": "java.lang.String",
+    "description": "Enable enrichment metadata from cross-ref site"
+  },
+  {
+    "name": "dua.tia.documentretriever.cross-ref-url",
+    "type": "java.lang.String",
+    "description": "Cross-ref service url"
+  },
+  {
+    "name": "dua.tia.documentretriever.open-citations-metadata-enabled",
+    "type": "java.lang.String",
+    "description": "Enable enrichment metadata from open-citations site"
+  },
+  {
+    "name": "dua.tia.documentretriever.open-citations-url",
+    "type": "java.lang.String",
+    "description": "Open-citations service url"
+  }
+]}

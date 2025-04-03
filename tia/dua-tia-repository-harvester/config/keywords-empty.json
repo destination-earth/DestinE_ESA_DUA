@@ -1,0 +1,12 @@
+{
+    "id": "empty",
+    "name": "empty dictionary",
+    "shortName": "empty",
+    "dictionaryDefinition": {
+        "keywords": [
+        ],
+        "skipKeywords": true,
+        "children": [
+        ]
+    }
+}

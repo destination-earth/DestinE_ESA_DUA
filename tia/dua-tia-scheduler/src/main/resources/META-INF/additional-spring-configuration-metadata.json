@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "dua.tia.scheduler.redis.port",
+    "type": "java.lang.String",
+    "description": "Redis connection port"
+  },
+  {
+    "name": "dua.tia.scheduler.redis.host",
+    "type": "java.lang.String",
+    "description": "Redis connection host"
+  },
+  {
+    "name": "dua.tia.scheduler.polling-period-sec",
+    "type": "java.lang.String",
+    "description": "Scheduler polling period, expressed in seconds"
+  },
+  {
+    "name": "dua.tia.configuration-manager.repositories-url",
+    "type": "java.net.URL",
+    "description": "Url of the credentials rest configuration api"
+  },
+  {
+    "name": "dua.tia.configuration-manager.credentials-url",
+    "type": "java.net.URL",
+    "description": "Url of the credentials rest configuration api"
+  },
+  {
+    "name": "dua.tia.configuration-manager.base-url",
+    "type": "java.lang.String",
+    "description": "Base url for the configuration-manager service"
+  }
+]}

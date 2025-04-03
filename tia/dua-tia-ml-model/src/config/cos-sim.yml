@@ -1,0 +1,6 @@
+#### COSINE_SIMILARITY-LR #### 
+MODEL_NAME: cos-sim
+MODULE_NAME: PolicyTrainer
+ALGORITHM: CosineSimilarity
+EMBEDDING_MODELS: 
+  - scibert

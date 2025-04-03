@@ -1,0 +1,7 @@
+{
+    "env": "ovh",
+	"url_chat": "/openwebui/ollama/api/chat",
+	"url_models": "/openwebui/api/models",
+	"api_key": "",
+	"splunk_root": "/splunk"
+}

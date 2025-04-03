@@ -1,0 +1,213 @@
+<dashboard version="1.1" stylesheet="eo_chatbot.css,destine_footer.css" script="eo_chatbot.js,destine_footer.js" hideEdit="false" hideSplunkBar="false" hideExport="true" theme="dark">
+  <label>AI Assistant for Earth Observation</label>
+  <row>
+    <panel depends="$hidden$">
+      <html>
+          <style>
+            #row_1 { width:100% !important; }
+            #row_2 { width:100% !important; }
+            #row_99 { width:100% !important; }
+              #footer_1 { width:100% !important; }
+          </style>
+        </html>
+    </panel>
+  </row>
+  
+  <row id="row_1">
+    <panel id="pnl_1">
+      <html>
+        
+        <div id="eo-selection">
+          <p class="eo-header-title">EO Expert</p>
+          <div id="eo-expert-choice"/>
+        </div>
+        
+      </html>
+    </panel>
+  </row>
+  
+  <row id="row_2">
+    <panel depends="$alwaysHideCSS$">
+      <html>
+        <style>
+          .dashboard-row .dashboard-panel {
+            background-color: transparent !important;
+          	border-style: unset;
+          }
+   
+          #chat_1 { width:100% !important; }
+          
+          #eo-chat-section {
+            visibility: visible;
+            width: 100%;
+            height: 70vh;
+          }
+          #eo-chat-list {
+            visibility: visible;
+            width: 0%;
+          }
+          #eo-chat-window {
+            visibility: visible;
+            width: 100%;
+          }
+          
+          #eo-citation-section {
+            visibility: hidden;
+          }
+          #eo-widget-icon {
+            visibility: hidden;
+          }
+        </style>
+      </html>
+    </panel>
+    <panel id="chat_1">
+      <html>
+
+        <div id="eo-chat-section" class="eo-chat-section">
+          
+          <div id="eo-chat-list" class="eo-chat-list">
+            
+            <div class="eo-header-section">
+              <p class="eo-header-title">EO Expert Chat</p>
+            </div>
+            
+            <div id="eo-chat-buttons" class="eo-chat-buttons">
+              <ul id="eo-expert2" class="eo-expert">
+              </ul>
+            </div>
+            
+          </div>
+          
+          <div id="eo-chat-window" class="eo-chat-window">
+           
+              <div class="eo-header-section">
+                
+                <div id="eo-header-title-section">
+                  <img id="eo-header-logo" class="eo-logo" src="/static/app/dua-uad/satellite.png" alt="Logo"/>
+                  <div>
+                    <p id="eo-header-title" class="eo-header-title">AI Assistant for EO</p>
+                    <p id="eo-header-description" class="eo-header-description">Chat with our AI Earth Observation Expert</p>
+                  </div>
+                </div>
+                
+<!--
+                <div id="eo-header-window-section">
+                  <div id="eo-header-min-section" class="eo-header-min">
+                    <i class="fa fa-window-minimize" aria-hidden="true" style="font-size: x-large"/>
+                  </div>
+                  <div id="eo-header-max-section" class="eo-header-max">
+                    <i class="fa fa-window-maximize" aria-hidden="true" style="font-size: x-large"/>
+                  </div>
+                  <div id="eo-header-close-section" class="eo-header-close">
+                    <i class="fa fa-times" aria-hidden="true" style="font-size: x-large"/>
+                  </div>
+                </div>
+-->
+              </div>
+              
+              <div id="eo-chat-messages" class="eo-chat-messages">
+                <div class="eo-message-wrapper eo-assistant-message eo-font">
+                  <div class="eo-message eo-font eo-assistant-message-bg">
+                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"/>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="eo-chat-input">
+  <!--
+                <div id="eo-attachment-button" class="eo-button" style="cursor: pointer; display: initial;">
+                  <i class="fa fa-paperclip" aria-hidden="true" style="font-size: x-large"/>
+                </div>
+  -->
+                <textarea id="eo-input-box" placeholder="Type a message..." class="eo-input-box"/>
+                <div id="eo-send-button" class="eo-button" style="cursor: pointer; display: initial;">
+                  <i class="fa fa-paper-plane-o" aria-hidden="true" style="font-size: x-large"/>
+                </div>
+              </div>
+              
+              <div class="eo-powered-by">
+                <div class="eo-feedback">
+                  <span id="eo-trash-history" class="eo-button">
+                  	<i class="fa fa-trash-o" aria-hidden="true" style="font-size: x-large"/>
+                  </span>
+  <!--
+                  <span id="eo-feedback-positive">
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true" style="font-size: x-large"/>
+                  </span>
+                  <span id="eo-feedback-negative">
+                    <i class="fa fa-thumbs-o-down" aria-hidden="true" style="font-size: x-large"/>
+                  </span>
+  -->
+                </div>
+                <div class="flex gap-2">	
+                  <div>
+                    <span>
+                      Powered by <a style="cursor:pointer;font-weight:600; color:#111;" href="https://mistral.ai" target="_blank" rel="nofollow">Mistral AI</a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+            
+          </div>
+        </div>
+        
+        <img id="eo-widget-icon" class="eo-widget-icon" src="/static/app/dua-uad/satellite.png"/>
+
+
+        <div id="eo-citation-section" class="eo-chat-modal">
+          <div id="eo-citation-window" class="eo-citation-window">
+            
+            <div class="eo-header-section">
+              <div id="eo-citation-title-section">
+                <div class="eo-citation-title" style="color: white; font-weight: bold;">
+                  Citations
+                </div>
+              </div>
+              <div id="eo-citation-close-section">
+                <div class="eo-header-close">
+                  <i class="fa fa-times" aria-hidden="true" style="font-size: x-large"/>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div>
+                <div>
+                  <div class="eo-citation-title">Source</div> 
+                  <div>
+                    <div>
+                      <span id="eo-citation-name" style="padding-left: 5px;"/>
+                    </div>
+                  </div> 
+                  <div class="eo-citation-title">Relevance</div> 
+                  <div aria-label="Semantic distance to query">
+                    <div>
+                      <span id="eo-citation-relevance" class="eo-citation-relevance" style="padding-left: 5px;"/> 
+                    </div>
+                  </div>
+                </div> 
+                <div>
+                  <div class="eo-citation-title">Content</div>
+                  <div style="overflow: auto; margin: 10px;">
+                    <pre id="eo-citation-content"/>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </html>
+    </panel>
+  </row>
+  
+  <row id="row_99">
+    <panel id="footer_1">
+      <html>
+        <div id="destine_footer">
+    	  </div>
+      </html>
+    </panel>
+  </row>
+</dashboard>

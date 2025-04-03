@@ -1,0 +1,15 @@
+<nav>
+  <view name="home" default='true'/>
+  <collection label="Repository">
+    <view name="documents"/>
+    <view name="documents_stats"/>
+  </collection>
+  <collection label="AI Assistant">
+    <view name="eo_assistant"/>
+  </collection>
+  <collection label="Service">
+    <view name="ml_performances"/>
+  </collection>
+  <collection label="Service Desk">
+  </collection>
+</nav>

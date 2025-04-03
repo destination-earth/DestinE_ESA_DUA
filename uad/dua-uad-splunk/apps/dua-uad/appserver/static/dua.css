@@ -1,0 +1,8 @@
+td.mydata-cell {
+        padding: 4px 8px;
+}
+td.mydata-cell .mydata-wrapper .mydata {
+        height: 16px;
+        min-width: 1px;
+        background-color: #FFFFFF;
+}

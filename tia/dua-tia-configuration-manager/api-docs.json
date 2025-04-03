@@ -1,0 +1,1211 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/tia/api/v1/repository-search-bindings": {
+            "get": {
+                "tags": [
+                    "repository-search-binding-controller"
+                ],
+                "operationId": "getRepositorySearchBindings",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RepositorySearchBinding"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "repository-search-binding-controller"
+                ],
+                "operationId": "saveRepositorySearchBinding",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RepositorySearchBinding"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RepositorySearchBinding"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/query-max-publication-date": {
+            "get": {
+                "tags": [
+                    "query-max-publication-date-controller"
+                ],
+                "operationId": "getQueryMaxPublicationDateList",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/QueryMaxPublicationDate"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "query-max-publication-date-controller"
+                ],
+                "operationId": "saveQueryMaxPublicationDate",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QueryMaxPublicationDate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QueryMaxPublicationDate"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/keyword-dictionaries": {
+            "get": {
+                "tags": [
+                    "keyword-dictionary-controller"
+                ],
+                "operationId": "getKeywordDictionaryList",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/KeywordDictionary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "keyword-dictionary-controller"
+                ],
+                "operationId": "saveKeywordDictionary",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KeywordDictionary"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KeywordDictionary"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/initiatives": {
+            "get": {
+                "tags": [
+                    "initiative-controller"
+                ],
+                "operationId": "getInitiatives",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Initiative"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "initiative-controller"
+                ],
+                "operationId": "saveInitiative",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Initiative"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Initiative"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/document-types": {
+            "get": {
+                "tags": [
+                    "document-type-controller"
+                ],
+                "operationId": "getDocumentTypes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DocumentType"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "document-type-controller"
+                ],
+                "operationId": "saveDocumentType",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocumentType"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentType"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/document-repositories": {
+            "get": {
+                "tags": [
+                    "document-repository-controller"
+                ],
+                "operationId": "getDocumentRepositoryList",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DocumentRepository"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "document-repository-controller"
+                ],
+                "operationId": "saveDocumentRepository",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocumentRepository"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentRepository"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/credentials": {
+            "get": {
+                "tags": [
+                    "credential-controller"
+                ],
+                "operationId": "getCredentialList",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Credential"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "credential-controller"
+                ],
+                "operationId": "saveCredential",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Credential"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Credential"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/bulk-configuration": {
+            "get": {
+                "tags": [
+                    "bulk-configuration-controller"
+                ],
+                "operationId": "getMethodName",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BulkConfiguration"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "bulk-configuration-controller"
+                ],
+                "operationId": "loadConfiguration",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkConfiguration"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "bulk-configuration-controller"
+                ],
+                "operationId": "dropConfiguration",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/repository-search-bindings/{id}": {
+            "get": {
+                "tags": [
+                    "repository-search-binding-controller"
+                ],
+                "operationId": "getRepositorySearchBinding",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RepositorySearchBinding"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "repository-search-binding-controller"
+                ],
+                "operationId": "deleteRepositorySearchBinding",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/repository-search-bindings/{id}/acronym": {
+            "get": {
+                "tags": [
+                    "repository-search-binding-controller"
+                ],
+                "operationId": "getRepositorySearchBindingAcronym",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/repository-search-bindings/by-doc-repo/{docRepoId}": {
+            "get": {
+                "tags": [
+                    "repository-search-binding-controller"
+                ],
+                "operationId": "getRepositorySearchBindingByDocRepo",
+                "parameters": [
+                    {
+                        "name": "docRepoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RepositorySearchBinding"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/query-max-publication-date/{searchBindingId}/{repositoryId}/{mission}": {
+            "get": {
+                "tags": [
+                    "query-max-publication-date-controller"
+                ],
+                "operationId": "getQueryMaxPublicationDate",
+                "parameters": [
+                    {
+                        "name": "searchBindingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "repositoryId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mission",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QueryMaxPublicationDate"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "query-max-publication-date-controller"
+                ],
+                "operationId": "deleteQueryMaxPublicationDate",
+                "parameters": [
+                    {
+                        "name": "searchBindingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "repositoryId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mission",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/query-max-publication-date/{id}": {
+            "get": {
+                "tags": [
+                    "query-max-publication-date-controller"
+                ],
+                "operationId": "getQueryMaxPublicationDate_1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QueryMaxPublicationDate"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/keyword-dictionaries/{id}": {
+            "get": {
+                "tags": [
+                    "keyword-dictionary-controller"
+                ],
+                "operationId": "getKeywordDictionary",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KeywordDictionary"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "keyword-dictionary-controller"
+                ],
+                "operationId": "deleteKeywordDictionary",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/initiatives/{id}": {
+            "get": {
+                "tags": [
+                    "initiative-controller"
+                ],
+                "operationId": "getInitiative",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Initiative"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "initiative-controller"
+                ],
+                "operationId": "deleteInitiative",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/document-types/{id}": {
+            "get": {
+                "tags": [
+                    "document-type-controller"
+                ],
+                "operationId": "getDocumentType",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentType"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "document-type-controller"
+                ],
+                "operationId": "deleteDocumentType",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/document-repositories/{id}": {
+            "get": {
+                "tags": [
+                    "document-repository-controller"
+                ],
+                "operationId": "getDocumentRepository",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentRepository"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "document-repository-controller"
+                ],
+                "operationId": "deleteDocumentRepository",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tia/api/v1/credentials/{id}": {
+            "get": {
+                "tags": [
+                    "credential-controller"
+                ],
+                "operationId": "getDocumentRepository_1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Credential"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "credential-controller"
+                ],
+                "operationId": "deleteCredential",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RepositorySearchBinding": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "initiativeId": {
+                        "type": "string"
+                    },
+                    "documentTypeId": {
+                        "type": "string"
+                    },
+                    "keywordDictionaryId": {
+                        "type": "string"
+                    },
+                    "documentRepositoryIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "QueryMaxPublicationDate": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "searchBindingId": {
+                        "type": "string"
+                    },
+                    "repositoryId": {
+                        "type": "string"
+                    },
+                    "mission": {
+                        "type": "string"
+                    },
+                    "maxPublicationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Comments": {
+                "type": "object",
+                "properties": {
+                    "generatedBy": {
+                        "type": "string"
+                    },
+                    "generationTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "KeywordDictionary": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "shortName": {
+                        "type": "string"
+                    },
+                    "get_comments": {
+                        "$ref": "#/components/schemas/Comments"
+                    },
+                    "dictionaryDefinition": {
+                        "$ref": "#/components/schemas/KeywordDictionaryDefinition"
+                    }
+                }
+            },
+            "KeywordDictionaryDefinition": {
+                "type": "object",
+                "properties": {
+                    "keywords": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "skipKeywords": {
+                        "type": "boolean"
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KeywordDictionaryDefinition"
+                        }
+                    }
+                }
+            },
+            "Initiative": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "shortName": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocumentType": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "shortName": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocumentRepository": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "driver": {
+                        "type": "string"
+                    },
+                    "credentials": {
+                        "type": "string"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "enabled": {
+                        "type": "boolean"
+                    },
+                    "pageLimit": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pauseBetweenPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "lastVisit": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Credential": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkConfiguration": {
+                "type": "object",
+                "properties": {
+                    "initiatives": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Initiative"
+                        }
+                    },
+                    "documentTypes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentType"
+                        }
+                    },
+                    "documentRepositories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentRepository"
+                        }
+                    },
+                    "keywordDictionaries": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KeywordDictionary"
+                        }
+                    },
+                    "repositorySearchBindingReferences": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RepositorySearchBindingReference"
+                        }
+                    },
+                    "repositorySearchBindings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RepositorySearchBinding"
+                        }
+                    }
+                }
+            },
+            "RepositorySearchBindingReference": {
+                "type": "object",
+                "properties": {
+                    "initiativeIdx": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "documentTypeIdx": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "keywordDictionaryIdx": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "documentRepositoryIdxs": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                },
+                "required": [
+                    "documentRepositoryIdxs",
+                    "documentTypeIdx",
+                    "initiativeIdx",
+                    "keywordDictionaryIdx"
+                ]
+            }
+        }
+    }
+}

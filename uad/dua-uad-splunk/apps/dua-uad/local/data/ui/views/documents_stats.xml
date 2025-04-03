@@ -1,0 +1,255 @@
+<form version="1.1" hideEdit="false" hideSplunkBar="false" hideExport="true" theme="dark" stylesheet="destine_footer.css" script="destine_footer.js">
+  <init>
+    <set token="tok_height1">480</set>
+  </init>
+  <label>DestinE Documents Statistics</label>
+  <description>This dashboard shows statistics on the DestinE Document Repository.</description>
+  <search id="s_stat_0">
+    <query>index=dua sourcetype=json_dua $tok_mission$ initiative=$tok_initiative$ $tok_doc_type$
+| spath path=authors{}.author_name output=author_names 
+| spath path=countries{} output=country 
+| spath path=journal_name
+| eval journal_name=if(isnull(journal_name) OR journal_name="" OR journal_name="null","-",journal_name)
+| fields file_id, doc_type, doi, title, author_names, country, journal_name
+| stats values(*) as * by doc_type, file_id
+</query>
+  </search>
+  <search id="s_filter">
+    <query>index=dua sourcetype=json_dua | stats count by initiative, mission, doc_type, repo_name
+    </query>
+  </search>
+  <search id="s_stat_country" base="s_stat_0">
+    <query>| mvexpand country | spath input=country
+| stats count by country
+| lookup geo_attr_us_states state_name AS country OUTPUT state_code
+| eval country=if(isnotnull(state_code) OR country="USA","United States",country)
+| eval country=if(country="UK","United Kingdom",country) 
+| eval country=if(match(country,"Korea"),"Republic of Korea",country)
+| lookup geo_attr_countries country AS country OUTPUT iso2
+| eval country=if(isnull(iso2),null(),country)</query>
+  </search>
+  <search id="s_stat_country_unmatched" base="s_stat_country">
+    <query>| stats sum(eval(if(isnull(country),count,0))) as unmatched, sum(eval(if(isnotnull(country),count,0))) as matched
+| eval value=round(100*unmatched/matched,1)</query>
+    <done>
+      <set token="tok_no_country">$result.value$</set>
+    </done>
+  </search>
+  <fieldset submitButton="false">
+    <input id="dropdown_1" type="dropdown" token="tok_initiative" searchWhenChanged="true">
+      <label>UseCase</label>
+      <fieldForLabel>initiative</fieldForLabel>
+      <fieldForValue>initiative</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <search base="s_filter">
+        <query>stats count by initiative</query>
+      </search>
+    </input>
+    <input id="multiselect_1" type="multiselect" token="tok_mission" searchWhenChanged="true">
+      <label>Mission</label>
+      <fieldForLabel>mission</fieldForLabel>
+      <fieldForValue>mission</fieldForValue>
+      <valuePrefix>mission="</valuePrefix>
+      <delimiter> OR </delimiter>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <valueSuffix>"</valueSuffix>
+      <search base="s_filter">
+        <query>search initiative=$tok_initiative$
+| stats count by mission</query>
+      </search>
+    </input>
+    <input id="multiselect_2" type="multiselect" token="tok_doc_type" searchWhenChanged="true">
+      <label>Doc Type</label>
+      <fieldForLabel>doc_type</fieldForLabel>
+      <fieldForValue>doc_type</fieldForValue>
+      <valuePrefix>doc_type="</valuePrefix>
+      <delimiter> OR </delimiter>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <valueSuffix>"</valueSuffix>
+      <search base="s_filter">
+        <query>stats count by doc_type</query>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <html>
+        <style>
+          #panel_01{ width:50% !important;  }
+          #panel_01 path[fill="#ffffff"]{
+            fill: #e4eaed;
+          }
+          #panel_01 rect.legend-color.legend-elem[fill="rgb(255,255,255)"]{
+            fill: #e4eaed;
+          }
+          #single_01{ width:50% !important; } 
+          #single_02{ width:50% !important; } 
+          #map_01 {
+            display: block;
+            z-index: 0;
+            position: relative;
+          }
+
+          #panel_02{ width:25% !important; } 
+          
+          #panel_03{ width:25% !important; } 
+          #chart_1 .highcharts-data-label text tspan{
+            font-size:140% !important;
+          }
+          
+          #panel_11{ width:100% !important; } 
+          
+          #row_99 { width:100% !important; }
+            #footer_1 { width:100% !important; }
+        </style>
+      </html>
+    </panel>
+  </row>
+  
+  <row id="row_1">
+    <panel id="panel_01">
+      <single id="single_01">
+        <title>Total Documents</title>
+        <search id="s_tot" base="s_stat_0">
+          <query>| stats count</query>
+        </search>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="height">$tok_height$</option>
+        <option name="link.visible">1</option>
+        <option name="rangeColors">["0x006d9c","0x006d9c"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">preview</option>
+        <option name="trellis.enabled">0</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <single id="single_02">
+        <title>Total countries</title>
+        <search id="s_tot_country" base="s_stat_country">
+          <query>| stats sum(count) as count by country | stats count</query>
+        </search>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="height">$tok_height$</option>
+        <option name="link.visible">0</option>
+        <option name="rangeColors">["0xede8d8","#ede8d8"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">preview</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.size">small</option>
+        <option name="trellis.splitBy">ptype</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <map id="map_01">
+        <title>Documents by country ($tok_no_country$ % Unmatched)</title>
+        <search id="s_stat_01" base="s_stat_country">
+          <query>| stats sum(count) as count by country
+| geom geo_countries featureIdField=country
+</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">$tok_height1$</option>
+        <option name="link.visible">1</option>
+        <option name="mapping.choroplethLayer.colorBins">5</option>
+        <option name="mapping.choroplethLayer.colorMode">auto</option>
+        <option name="mapping.choroplethLayer.maximumColor">0x006d9c</option>
+        <option name="mapping.choroplethLayer.minimumColor">0xf8be34</option>
+        <option name="mapping.choroplethLayer.neutralPoint">0</option>
+        <option name="mapping.choroplethLayer.shapeOpacity">0.75</option>
+        <option name="mapping.choroplethLayer.showBorder">1</option>
+        <option name="mapping.legend.placement">bottomright</option>
+        <option name="mapping.map.center">(20,0)</option>
+        <option name="mapping.map.scrollZoom">0</option>
+        <option name="mapping.map.zoom">2</option>
+        <option name="mapping.showTiles">1</option>
+        <option name="mapping.type">choropleth</option>
+        <option name="refresh.display">none</option>
+      </map>
+    </panel>
+    <panel id="panel_02">
+      <single>
+        <title>Total Authors</title>
+        <search id="s_tot_auth" base="s_stat_0">
+          <query>| stats count by author_names | stats count</query>
+        </search>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="height">$tok_height$</option>
+        <option name="link.visible">0</option>
+        <option name="rangeColors">["0x53a051","#53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">preview</option>
+        <option name="trellis.enabled">0</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <table id="table_2">
+        <title>Top 10 Authors</title>
+        <search id="s_stat_02" base="s_stat_0">
+          <query>| mvexpand author_names | spath input=author_names
+| eval author_names=if(isnull(author_names) OR author_names="","-",author_names)
+| top limit=10 useother=true author_names | eval percent=round(percent,3)</query>
+        </search>
+        <option name="count">11</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel id="panel_03">
+      <single>
+        <title>Total Journals</title>
+        <search id="s_tot_journal" base="s_stat_0">
+          <query>| stats count by journal_name | stats count</query>
+        </search>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="height">$tok_height$</option>
+        <option name="link.visible">1</option>
+        <option name="rangeColors">["0x88d8f2","#88d8f2"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">preview</option>
+        <option name="trellis.enabled">0</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <chart id="chart_1">
+        <title>Top 10 Journals</title>
+        <search id="s_top_journal" base="s_stat_0">
+          <query>| top limit=10 useother=true journal_name | eval percent=round(percent,3)</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.showPercent">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <row id="row_99">
+    <panel id="footer_1">
+      <html>
+        <div id="destine_footer">
+    	  </div>
+      </html>
+    </panel>
+  </row>
+  
+</form>

@@ -1,0 +1,273 @@
+<form version="1.1" hideEdit="false" theme="light">
+  <init>
+    <set token="tok_height1">480</set>
+  </init>
+  <label>TIA Service: ML performances Detail</label>
+  <description>This dashboard shows performances and metrics of Machine Learning model used in the Traceability and Impact Analysis (TIA) service of the DestinE Usage Assessment framework.</description>
+  <search id="s_ee_0">
+    <query>index=dua sourcetype=json_ee_ml id=$tok_id$ 
+| spath=classification_report.accuracy output=accuracy
+| rename classification_report.* as * 
+| fields accuracy, benchmark.*, influential.*, standard.*, macro_avg.*, weighted_avg.*
+| untable accuracy Column Value 
+| eval class=mvindex(split(Column,"."),0) 
+| eval metric=mvindex(split(Column,"."),1) 
+| eval accuracy_class=accuracy."|".class 
+| xyseries accuracy_class metric Value 
+| eval accuracy=mvindex(split(accuracy_class,"|"),0) 
+| eval class=mvindex(split(accuracy_class,"|"),1) 
+</query>
+  </search>
+  <search id="s_ee_1">
+    <query>index=dua sourcetype=json_ee_ml id=$tok_id$ 
+| spath "confusion_matrix{0}{}" output=actual_0
+| spath "confusion_matrix{1}{}" output=actual_1
+| spath "confusion_matrix{2}{}" output=actual_2
+| eval zip=mvzip(actual_0, mvzip(actual_1, actual_2)) | mvexpand zip
+| streamstats count | eval count=count-1 | eval label="predicted_".count 
+| eval actual_0=mvindex(split(zip,","),0), actual_1=mvindex(split(zip,","),1), actual_2=mvindex(split(zip,","),2)
+| table label, actual_0, actual_1, actual_2
+| transpose header_field=label | rename column as label
+</query>
+  </search>
+  <search id="s_ee_3">
+    <query>index=dua sourcetype=json_ee_ml id=$tok_id$ | table *
+</query>
+  </search>
+  <fieldset submitButton="false">
+    <input id="dropdown_1" type="dropdown" token="tok_usecase" searchWhenChanged="true">
+      <label>UseCase</label>
+      <fieldForLabel>usecase</fieldForLabel>
+      <fieldForValue>usecase</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <choice value="json_ee_ml">EarthExplorers</choice>
+      <default>json_ee_ml</default>
+      <initialValue>json_ee_ml</initialValue>
+    </input>
+    <input id="dropdown_2" type="dropdown" token="tok_id" searchWhenChanged="true">
+      <label>Training id</label>
+      <fieldForLabel>id</fieldForLabel>
+      <fieldForValue>id</fieldForValue>
+      <selectFirstChoice>true</selectFirstChoice>
+      <search>
+        <query>index=dua sourcetype=$tok_usecase$ | stats count by id | fields id</query>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel depends="$alwaysHideCSS$">
+      <html>
+        <style>
+          #panel_1{ width:100% !important; }
+            #tbl_1{ width:100% !important; }
+          #panel_2{ width:100% !important; }
+
+          #panel_3{ width:50% !important; }
+          #panel_4{ width:50% !important; }
+            #viz_1 .highcharts-data-label text tspan{
+              font-size:150% !important;
+            }
+            
+          #panel_11{ width:100% !important; } 
+        </style>
+      </html>
+    </panel>
+  </row>
+  <row id="row_01">
+    <panel id="panel_1">
+      <table id="tbl_1">
+        <title>Training run</title>
+        <search id="s_ee_03" base="s_ee_3">
+          <query>
+| spath path={} | fields - _raw 
+| rename {}.* as * 
+| table id,start_time,stop_time,elapsed_hours,node.hostname,model.name,dataset.name</query>
+        </search>
+        <option name="count">1</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="wrap">false</option>
+      </table>
+    </panel>
+  </row>
+  <row id="row_02">
+    <panel>
+      <table id="tbl_2">
+        <title>Node</title>
+        <search id="s_ee_04" base="s_ee_3">
+          <query>
+| spath path=node{} output=node | fields - _raw 
+| rename node.* as * 
+| table hostname,os,flavour,description,ram_gb,cores,type,storage_gb,network_mbps,price_hour_eur
+| transpose 0 column_name=key 
+| rename "row 1" as value</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <table id="tbl_3">
+        <title>Model</title>
+        <search id="s_ee_05" base="s_ee_3">
+          <query>
+| spath path=model{} output=model | fields - _raw 
+| rename model.* as * 
+| table name,type,url,version,doi
+| transpose 0 column_name=key 
+| rename "row 1" as value</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <table id="tbl_4">
+        <title>Dataset</title>
+        <search id="s_ee_06" base="s_ee_3">
+          <query>
+| spath path=dataset{} output=dataset | fields - _raw 
+| rename dataset.* as * 
+| table name,method,url,version,doi,doc_type
+| transpose 0 column_name=key 
+| rename "row 1" as value</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <table id="tbl_5">
+        <title>Params</title>
+        <search id="s_ee_07">
+          <query>index=dua sourcetype=json_ee_ml id=$tok_id$ 
+| spath path=params{} output=params | fields - _raw 
+| rename params.* as * 
+| table algorithm,tokenizer,batch_size,epoch,optimizer,learning_rate,loss.*
+| transpose 0 column_name=key 
+| rename "row 1" as value</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="link.openSearch.visible">1</option>
+        <option name="link.visible">1</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row id="row_03">
+    <panel id="panel_3">
+      <chart>
+        <title>Classification results</title>
+        <search base="s_ee_0">
+          <query>| search class=*_avg
+| fields - accuracy_class
+| fields class, precision, recall, "f1-score"</query>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="height">320</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel id="panel_4">
+      <input id="dropdown_3" type="dropdown" token="tok_class" searchWhenChanged="true">
+        <label>Class label</label>
+        <fieldForLabel>class</fieldForLabel>
+        <fieldForValue>class</fieldForValue>
+        <selectFirstChoice>true</selectFirstChoice>
+        <choice value="benchmark">benchmark (2)</choice>
+        <choice value="influential">influential (1)</choice>
+        <choice value="standard">standard (0)</choice>
+        <default>benchmark</default>
+        <initialValue>benchmark</initialValue>
+      </input>
+      <single id="single_1">
+        <title>Classification report</title>
+        <search base="s_ee_0">
+          <query>| search class=$tok_class$
+| fields - accuracy_class
+| stats avg(accuracy) as accuracy avg(precision) as precision avg(recall) as recall avg("f1-score") as "f1-score"</query>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="height">120</option>
+        <option name="numberPrecision">0.0000</option>
+        <option name="rangeColors">["0xdc4e41","0xf1813f","0x006d9c","0x53a051"]</option>
+        <option name="rangeValues">[0.5,0.75,0.9]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trellis.splitBy">_aggregation</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <viz id="viz_1" type="Splunk_ML_Toolkit.HeatmapViz">
+        <title>Confusion Matrix</title>
+        <search base="s_ee_1">
+          <query>| table label, predicted_0, predicted_1, predicted_2</query>
+        </search>
+        <option name="Splunk_ML_Toolkit.HeatmapViz.highlightDiagonals">true</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </viz>
+    </panel>
+  </row>
+</form>

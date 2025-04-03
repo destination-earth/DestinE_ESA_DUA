@@ -1,0 +1,9 @@
+beautifulsoup4==4.12.3
+contractions==0.1.73
+langdetect==1.0.9
+nltk==3.8.1
+pandas==2.2.1
+pyyaml==6.0.2
+requests==2.32.3
+tika==2.6.0
+scikit-learn==1.4.1.post1
