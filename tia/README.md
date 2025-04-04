@@ -2,7 +2,7 @@
 
 In the *DUA* project, the TIA Service is responsible of harvesting new *academic* and *policy* documents from the configured journal repositories, download their metadata and full-text PDFs (where available), evaluate the *Initiative* impact on these documents through an NLP-ML model, and archive those information on a data storage shared between the other *DUA* services (e.g. UAD).
 
-The subject *Initiatives* can be easily and dynamically configured (see the [configuration manager documentation](../dua-tia-configuration-manager/README.md)). More than one *Initiatives* can exists at a time, several document repositories can be configured for each of them and different keyword dictionaries can be applied during the harvesting process.
+The subject *Initiatives* can be easily and dynamically configured (see the [configuration manager documentation](dua-tia-configuration-manager/README.md)). More than one *Initiatives* can exists at a time, several document repositories can be configured for each of them and different keyword dictionaries can be applied during the harvesting process.
 
 This *Git* module describes the overall TIA Service behaviour giving the system overview and the logic behind the integration between its sub-components.
 
