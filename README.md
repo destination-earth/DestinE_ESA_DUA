@@ -5,15 +5,52 @@ The purpose of the DestinE Usage Assessment (DUA) framework services is to provi
 
 |Acronym|Service Class|||
 |---|---|---|---|
-|TIA|DestinE Traceability and Impact Analysis Services|Multi-level Multilingual Traceability Service|Policy and Academic Documents Repositories|
+|[TIA](tia/README.md)|DestinE Traceability and Impact Analysis Services|Multi-level Multilingual Traceability Service|Policy and Academic Documents Repositories|
 |||Metadata Retrieval, Usage Assessment Metrics, Benchmark Dataset|Metadata Retrieval Tool|
 |||Use case|Earth Explorer Missions use case|
-|UAD|DestinE Usage Assessment Dashboard Services|DestinE Documents Repository|
+|[UAD](uad/README.md)|DestinE Usage Assessment Dashboard Services|DestinE Documents Repository|
 |||DestinE Documents Statistics||
 |||AI Assistant for Earth Observation||
 
 
-## Overview
+## Demo
+
+### Live Demo
+
+To try the DestinE Usage Assessment live demo, click on the following link and use the credentials: 
+
+[DUA Live Demo](https://51.210.160.165/splunk/en-US/app/dua-uad/home)
+
+- username: *guest*
+- password: *DuaGuest!!*
+
+If a warning message "Your connection is not private" (NET::ERR_CERT_AUTHORITY_INVALID) is shown, please click on "Advanced Options" to proceed to the demo site anyway.
+
+
+### DestinE Document Repository
+
+The DestinE Documents Repository dashboard displays metadata of retrieved and processed documents. It is possible to apply several filter to the result-set such as "Use Case" (Earth Explorers, Copernicus, DestinE), "Mission" (e.g., Aeolus, GOCE, Sentinel-1, etc.), "Document Type" (academic, policy, ESA tech), "Repository" (source document repository) and "Classification" (standard, influential, benchmark)
+It shows also some query result statistics in the form of pie charts for classification, missions, repositories, journals, and the list of top 5 authors.
+
+![DestinE Document Repository](<static/video/Documents Repository.gif>)
+
+
+### DestinE Documents Statistics
+
+The dashboard aggregates document statistics for analytical insights, giving the user details about documents distributions from a geographical point of view. It is possible to apply some filters to delimit the statistics results, such as "Use Case", "Mission" and "Document Type". It shows  the count of total documents, affiliation countries, authors, and journals with document distribution by country shown on a map, the top 10 authors list and a pie chart for top 10 journals.
+
+![DestinE Documents Statistics](<static/video/DestinE Documents Statistics.gif>)
+
+
+### AI Assistant for Earth Observation
+
+This web interface provides an AI Assistant interaction for querying the knowledge base about the documents collected for all initiatives' missions. The user can select the interest mission using a dedicated dropdown, then he can interact with a chat interface for mission-related inquiries. For each Assistant's response, are provided citation details (if available) including snippet, document relevance, and link to DestinE Documents Repository for further analysis.
+
+![AI Assitant for EO](<static/video/AI Assistant for Earth Observation.gif>)
+
+
+
+## System Overview
 
 The DestinE Usage Assessment (DUA) framework follows a structured and automated information flow to retrieve, analyse, classify, and store metadata from public document repositories. This process ensures that relevant academic and policy documents related to the DestinE initiative and other Earth observation programs are systematically identified, processed, and made available for analytical exploration and AI-assisted queries.
 
@@ -103,45 +140,3 @@ Within Splunk Enterprise, the UAD Service provides three specialized dashboards 
 The integration with OpenWebUI, Ollama, and Mistral-7B provides an intelligent AI-powered interface for users seeking in-depth insights. By leveraging the Mistral-7B model, which is a state-of-the-art European AI initiative, the system ensures context-aware, citation-backed responses based on the enriched knowledge base. Users can interact with the assistant to retrieve relevant publications, examine cited sources, and navigate to the DestinE Documents Repository Dashboard for further exploration.
 
 Through this automated workflow, the DUA framework ensures seamless document retrieval, impact classification, structured metadata storage, and interactive analytical access, empowering researchers, policymakers, and decision-makers to evaluate DestinE’s influence on scientific and policy discourse.
-
-
-## Demo
-
-### DestinE Document Repository
-
-The DestinE Documents Repository dashboard displays metadata of retrieved and processed documents. It is possible to apply several filter to the result-set such as "Use Case" (Earth Explorers, Copernicus, DestinE), "Mission" (e.g., Aeolus, GOCE, Sentinel-1, etc.), "Document Type" (academic, policy, ESA tech), "Repository" (source document repository) and "Classification" (standard, influential, benchmark)
-It shows also some query result statistics in the form of pie charts for classification, missions, repositories, journals, and the list of top 5 authors.
-
-![DestinE Document Repository](<static/video/Documents Repository.gif>)
-
-
-### DestinE Documents Statistics
-
-The dashboard aggregates document statistics for analytical insights, giving the user details about documents distributions from a geographical point of view. It is possible to apply some filters to delimit the statistics results, such as "Use Case", "Mission" and "Document Type". It shows  the count of total documents, affiliation countries, authors, and journals with document distribution by country shown on a map, the top 10 authors list and a pie chart for top 10 journals.
-
-![DestinE Documents Statistics](<static/video/DestinE Documents Statistics.gif>)
-
-
-### AI Assistant for Earth Observation
-
-This web interface provides an AI Assistant interaction for querying the knowledge base about the documents collected for all initiatives' missions. The user can select the interest mission using a dedicated dropdown, then he can interact with a chat interface for mission-related inquiries. For each Assistant's response, are provided citation details (if available) including snippet, document relevance, and link to DestinE Documents Repository for further analysis.
-
-![AI Assitant for EO](<static/video/AI Assistant for Earth Observation.gif>)
-
-
-
-### Live Demo
-
-To try the DestinE Usage Assessment live demo, click on the following link and use the credentials: 
-
-- username: *guest*
-- password: *DuaGuest!!*
-
-[![Live Demo](static/images/DUA-logo2.png)](https://57.128.80.52/splunk/en-US/app/dua-uad/home)
-
-
-# Services
-
-- [TIA](tia/README.md)
-- [UAD](uad/README.md)
-
