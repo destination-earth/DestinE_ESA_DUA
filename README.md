@@ -19,12 +19,10 @@ The purpose of the DestinE Usage Assessment (DUA) framework services is to provi
 
 To try the DestinE Usage Assessment live demo, click on the following link and use the credentials: 
 
-[DUA Live Demo](https://51.210.160.165/splunk/en-US/app/dua-uad/home)
+[DUA Live Demo](https://dua-demo.freeddns.it/splunk/en-US/app/dua-uad/home)
 
 - username: *guest*
 - password: *DuaGuest!!*
-
-If a warning message "Your connection is not private" (NET::ERR_CERT_AUTHORITY_INVALID) is shown, please click on "Advanced Options" to proceed to the demo site anyway.
 
 
 ### DestinE Document Repository
