@@ -17,12 +17,10 @@ The purpose of the DestinE Usage Assessment (DUA) framework services is to provi
 
 ### Live Demo
 
-To try the DestinE Usage Assessment live demo, click on the following link and use the credentials: 
+To try out the DestinE Usage Assessment live demo, please click on the following link: 
 
 [DUA Live Demo](https://dua-demo.freeddns.it/splunk/en-US/app/dua-uad/home)
 
-- username: *guest*
-- password: *DuaGuest!!*
 
 
 ### DestinE Document Repository
